@@ -1,18 +1,23 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <Carousel/>
+    <section class="carousel">
+      <!-- <Button to="/List" value="Go to list"></Button> -->
+      <button-control to="/List" text="Go to list"></button-control>
+     
+      <Carousel/>
+    </section>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
 import Carousel from '@/components/Carousel.vue'
+import ButtonControl from '@/components/ButtonControl.vue'
 
 export default {
   name: 'Home',
   components: {
     Carousel,
+    ButtonControl,
   }
 }
 </script>
