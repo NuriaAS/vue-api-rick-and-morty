@@ -1,11 +1,20 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Rick&Morty<br>Characters</router-link>
+      <Header/>
     </div>
     <router-view/>
   </div>
 </template>
+<script>
+import Header from '@/components/Header.vue'
+
+export default ({
+ components: {
+   Header,
+ }
+})
+</script>
 
 <style lang="scss">
 #app {
