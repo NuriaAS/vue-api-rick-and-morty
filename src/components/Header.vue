@@ -1,11 +1,10 @@
 <template>
-    <div class="header">
+    <header class="header">
       <router-link to="/">Rick&Morty<br>Characters</router-link>
       <input-search  v-show="$route.path==='/List' ? true : false" :placeholder=this.placeholder></input-search>
-    </div>
+    </header>
 </template>
 <script>
-// import { defineComponent } from '@vue/composition-api'
 import InputSearch from '@/components/InputSearch.vue'
 
 export default ({
