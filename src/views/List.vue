@@ -18,15 +18,26 @@ export default ({
     }
   },
   mounted() {
-    axios.get(`https://rickandmortyapi.com/api/character`)
+    const charactersNumbers = this.getStringNumbers(671);
+    axios.get(`https://rickandmortyapi.com/api/character/${charactersNumbers}`)
       .then( response => {
         const data = response.data;
-        this.characters= data.results;
+        this.characters= data;
       })
       .catch(error => {
         console.error(error);
       })
+  },
+  methods: {
+    getStringNumbers(count) {
+      let arrayNumbers = [];
+      for(let i = 1; i <= count; i++) {
+        arrayNumbers.push(i)
+      }
+      return arrayNumbers.toString();
+    }
   }
+
 })
 </script>
 
