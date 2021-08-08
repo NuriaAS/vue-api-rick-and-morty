@@ -2,7 +2,7 @@
   <div class="list">
     <h1>This is a List page</h1>
     <ul>
-      <li v-for="character in characters" :key="character.id">
+      <li v-for="character in charactersList" :key="character.id">
         <img :src="character.image" alt="">
         <h2>{{ character.name }}</h2>
       </li>
@@ -10,40 +10,16 @@
   </div>
 </template>
 <script>
-import axios from 'axios';
+import { mapGetters } from 'vuex'
 export default ({
-  data() {
-    return {
-      characters: [],
-    }
-  },
   mounted() {
-    const baseUrl = "https://rickandmortyapi.com/api/";
-    axios.get(`${baseUrl}character/`) 
-      .then(response => {
-        axios.get(`${baseUrl}character/${this.getStringNumbers(response.data.info.count)}`)
-          .then( response => {
-            const data = response.data;
-            this.characters= data;
-          })
-          .catch(error => {
-            console.error(error);
-          })
-      })
-      .catch(error => {
-        console.error(error);
-      }) 
+    this.$store.dispatch('getCharacters'); 
   },
-  methods: {
-    getStringNumbers(count) {
-      let arrayNumbers = [];
-      for(let i = 1; i <= count; i++) {
-        arrayNumbers.push(i)
-      }
-      return arrayNumbers.toString();
-    }
+  computed: {
+    ...mapGetters([
+      'charactersList'
+    ]),
   }
-
 })
 </script>
 
