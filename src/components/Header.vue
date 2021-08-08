@@ -30,6 +30,7 @@ export default ({
    methods: {
     changeFilterHandler(value) {
         this.filterWorld = value;
+        this.$store.dispatch('setFilterValue', value);
     },  
    },
    components: {
