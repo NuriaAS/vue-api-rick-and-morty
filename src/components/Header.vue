@@ -1,21 +1,39 @@
 <template>
     <header class="header">
-      <router-link to="/">Rick&Morty<br>Characters</router-link>
-      <input-search  v-show="$route.path==='/List' ? true : false" :placeholder=this.placeholder></input-search>
+        <router-link to="/">
+            Rick&Morty<br>Characters
+        </router-link>
+        <input-group
+            v-show="$route.path==='/List' ? true : false"
+            @inputEvent="changeFilterHandler"
+            :type="this.inputType"
+            :name="this.inputName"
+            :label="this.inputLabel"
+            :placeholder="this.inputPlaceholder"
+        />
     </header>
 </template>
 <script>
-import InputSearch from '@/components/InputSearch.vue'
+import InputGroup from '@/components/InputGroup.vue'
 
 export default ({
    name: 'Header',
    data() {
        return {
-           placeholder: 'Start typing name'
+           inputPlaceholder: 'Start typing name',
+           inputLabel: 'Look for your favorite character',
+           inputName: 'filter',
+           inputType: 'text',
+           filterWorld: '',
        }
    },
+   methods: {
+    changeFilterHandler(value) {
+        this.filterWorld = value;
+    },  
+   },
    components: {
-       InputSearch,
+       InputGroup,
    }
 })
 </script>
