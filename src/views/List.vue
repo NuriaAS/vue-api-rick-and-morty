@@ -2,7 +2,7 @@
   <div class="list">
     <h1>This is a List page</h1>
     <ul>
-      <li v-for="character in charactersList" :key="character.id">
+      <li v-for="character in filteredCharactersList" :key="character.id">
         <img :src="character.image" alt="">
         <h2>{{ character.name }}</h2>
       </li>
@@ -17,7 +17,7 @@ export default ({
   },
   computed: {
     ...mapGetters([
-      'charactersList'
+      'filteredCharactersList'
     ]),
   }
 })

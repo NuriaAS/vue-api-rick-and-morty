@@ -24,13 +24,11 @@ export default ({
            inputLabel: 'Look for your favorite character',
            inputName: 'filter',
            inputType: 'text',
-           filterWorld: '',
        }
    },
    methods: {
     changeFilterHandler(value) {
-        this.filterWorld = value;
-        this.$store.dispatch('setFilterValue', value);
+        this.$store.dispatch('setFilteredList', value.toLowerCase());
     },  
    },
    components: {

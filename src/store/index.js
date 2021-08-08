@@ -14,20 +14,22 @@ const getStringNumbers = (count) => {
 
 export default new Vuex.Store({
   state: {
-    filterString: "",
     characterList: [],
+    filteredCharactersList: []
   },
   mutations: {
-    SET_FILTER_STRING(state, filterValue) {
-      state.filterString = filterValue;
-    }, 
     SET_CHARACTERS_LIST(state, characters) {
       state.characterList = characters;
+      state.filteredCharactersList = characters;
+    },
+    SET_FILTERED_LIST(state, filteredValue) {
+      const filteredList = state.characterList.filter(character => character.name.toLowerCase().includes(filteredValue));
+      state.filteredCharactersList = filteredList;
     }
   },
   actions: {
-    setFilterValue({commit}, payloadFilterValue) {
-      commit('SET_FILTER_STRING', payloadFilterValue);
+    setFilteredList({commit}, payloadFilterValue) {
+      commit('SET_FILTERED_LIST', payloadFilterValue);
     },
     getCharacters({commit}) {
       const baseUrl = "https://rickandmortyapi.com/api/";
@@ -47,6 +49,6 @@ export default new Vuex.Store({
     }
   },
   getters: {
-    charactersList: state => state.characterList
+    filteredCharactersList: state => state.filteredCharactersList
   }
 })
