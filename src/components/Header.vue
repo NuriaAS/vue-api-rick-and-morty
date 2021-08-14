@@ -14,7 +14,7 @@
     </header>
 </template>
 <script>
-import InputGroup from '@/components/InputGroup.vue'
+import InputGroup from '@/components/InputGroup.vue';
 
 export default ({
    name: 'Header',
