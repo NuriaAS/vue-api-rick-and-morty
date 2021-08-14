@@ -1,16 +1,12 @@
 <template>
   <div class="list">
     <h1>This is a List page</h1>
-    <ul>
-      <li v-for="character in filteredCharactersList" :key="character.id">
-        <img :src="character.image" alt="">
-        <h2>{{ character.name }}</h2>
-      </li>
-    </ul>
+    <List :items="filteredCharactersList"/>
   </div>
 </template>
 <script>
 import { mapGetters } from 'vuex';
+import List from '@/components/List.vue';
 
 export default ({
   mounted() {
@@ -20,6 +16,9 @@ export default ({
     ...mapGetters([
       'filteredCharactersList'
     ]),
+  },
+  components: {
+    List,
   }
 })
 </script>
