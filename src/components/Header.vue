@@ -4,7 +4,7 @@
             Rick&Morty<br>Characters
         </router-link>
         <input-group
-            v-show="$route.path==='/List' ? true : false"
+            v-show="$route.path==='/characters' ? true : false"
             @inputEvent="changeFilterHandler"
             :type="this.inputType"
             :name="this.inputName"

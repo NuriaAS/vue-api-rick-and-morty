@@ -1,9 +1,9 @@
 <template>
     <li>
-        <a href="">
+        <router-link :to="`character/${item.name}`">
             <img :src="item.image" alt="">
             <h2>{{ item.name }}</h2>
-        </a>
+        </router-link>
     </li>
 </template>
 <script>
