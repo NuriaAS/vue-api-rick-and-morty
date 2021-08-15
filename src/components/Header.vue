@@ -3,13 +3,13 @@
         <nav>
             <ul>
                 <li>
-                    <router-link to="/">
+                    <router-link to="/" exact>
                         Rick&Morty
                     </router-link>
                 </li>
                 <li v-show="$route.path===`/character/${$route.params.id}/${$route.params.name}` ? true : false">
                     <router-link to="/characters">
-                        Go to Characters list
+                        Go to characters' list
                     </router-link>
                 </li>
             </ul>
