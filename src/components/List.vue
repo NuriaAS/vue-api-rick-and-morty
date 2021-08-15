@@ -1,20 +1,24 @@
 <template>
     <ul>
-      <li v-for="item in items" :key="item.id">
-        <img :src="item.image" alt="">
-        <h2>{{ item.name }}</h2>
-      </li>
+      <linked-item 
+        v-for="listItem in listItems" 
+        :item="listItem" 
+        :key="listItem.id"
+      />
     </ul>
 </template>
 <script>
-
+import LinkedItem from '@/components/LinkedItem.vue';
 export default {
     name: 'List',
     props: {
-        items: {
+        listItems: {
             type: Array,
             required: true
         }
+    },
+    components: {
+        LinkedItem,
     }
 }
 </script>

@@ -1,7 +1,7 @@
 <template>
   <div class="list">
     <h1>This is a List page</h1>
-    <List :items="filteredCharactersList"/>
+    <List :listItems="filteredCharactersList"/>
   </div>
 </template>
 <script>
