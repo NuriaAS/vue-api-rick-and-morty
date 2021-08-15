@@ -1,7 +1,16 @@
 <template>
   <div class="list">
-    <h1>This is a List page</h1>
-    <List :listItems="filteredCharactersList"/>
+    <h1>Lista de personajes</h1>
+    <h2  v-if="getLoadingState === 'loading'">
+      Estamos obteniendo la lista de personajes
+    </h2>
+    <List 
+      v-else-if= "getLoadingState === 'loaded'" 
+      :listItems="filteredCharactersList"
+    />
+    <h2 v-else>
+      No hemos podido cargar la lista de personajes
+    </h2>
   </div>
 </template>
 <script>
@@ -14,7 +23,8 @@ export default ({
   },
   computed: {
     ...mapGetters([
-      'filteredCharactersList'
+      'filteredCharactersList',
+      'getLoadingState'
     ]),
   },
   components: {
