@@ -1,9 +1,7 @@
 <template>
   <div class="list">
     <h1>Lista de personajes</h1>
-    <h2  v-if="getLoadingState === 'loading'">
-      Estamos obteniendo la lista de personajes
-    </h2>
+    <Spinner v-if="getLoadingState === 'loading'"/>
     <List 
       v-else-if= "getLoadingState === 'loaded'" 
       :listItems="filteredCharactersList"
@@ -16,6 +14,7 @@
 <script>
 import { mapGetters } from 'vuex';
 import List from '@/components/List.vue';
+import Spinner from '@/components/Spinner.vue'; 
 
 export default ({
   mounted() {
@@ -29,6 +28,7 @@ export default ({
   },
   components: {
     List,
+    Spinner,
   }
 })
 </script>

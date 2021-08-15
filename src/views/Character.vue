@@ -1,7 +1,5 @@
 <template>
-    <h1 v-if="getLoadingState === 'loading'">
-        Estamos obteniendo la información de  {{ $route.params.name }}
-    </h1>
+    <Spinner v-if="getLoadingState === 'loading'"/>
     <h1 v-else-if="getLoadingState === 'loaded'">
         Soy {{ characterObject.name }}
     </h1>
@@ -11,7 +9,7 @@
 </template>
 <script>
 import { mapGetters } from 'vuex';
-
+import Spinner from '@/components/Spinner.vue';
 export default {
    name: 'Character',
    mounted() {
@@ -22,6 +20,9 @@ export default {
             'characterObject',
             'getLoadingState'
         ]),
+   },
+   components: {
+       Spinner
    }
 }
 </script>
