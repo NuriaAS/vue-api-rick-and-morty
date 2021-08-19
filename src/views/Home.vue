@@ -6,7 +6,6 @@
     </section>
   </div>
 </template>
-
 <script>
 import Carousel from '@/components/Carousel.vue';
 
