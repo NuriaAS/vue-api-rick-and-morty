@@ -11,6 +11,7 @@ const getStringNumbers = (count) => {
   }
   return arrayNumbers.toString();
 }
+
 const baseUrl = "https://rickandmortyapi.com/api/character/";
 
 export default new Vuex.Store({
@@ -31,10 +32,10 @@ export default new Vuex.Store({
     },
     SET_CHARACTER(state, character) {
       state.character = character;
-    }
-    ,SET_LOADING_STATE(state, payloadLoadingState) {
-      state.fetchProgress = payloadLoadingState
-    }
+    },
+    SET_LOADING_STATE(state, payloadLoadingState) {
+      state.fetchProgress = payloadLoadingState;
+    },
   },
   actions: {
     setFilteredList({commit}, payloadFilterValue) {
@@ -63,14 +64,55 @@ export default new Vuex.Store({
       commit('SET_LOADING_STATE', 'loading');
       axios.get(`${baseUrl}${payloadId}`)
         .then(response => {
-          commit('SET_CHARACTER', response.data);
-          commit('SET_LOADING_STATE', 'loaded');
+          const character = response.data;
+          axios.get(`${character.location.url}`)
+            .then(response => {
+              const newCharacter = {
+                ...character,
+                location: {
+                  dimension: response.data.dimension,
+                  name: response.data.name
+                }
+              }
+              commit('SET_CHARACTER', newCharacter);
+            })
+            .catch(error => {
+              console.error(error);
+              const newCharacter = {
+                ...character,
+                location: {
+                  dimension: "couldn't retrieve data",
+                  name: response.data.name
+                },
+              }
+              commit('SET_CHARACTER', newCharacter);
+            })
+            .finally(() => {
+              axios.get(`${character.episode[0]}`)
+              .then(response => {
+                const newCharacter = {
+                  ...character,
+                  firstEpisodeName: response.data.name
+                }
+                commit('SET_CHARACTER', newCharacter);
+              })
+              .catch(error => {
+                console.error(error);
+                const newCharacter = {
+                  ...character,
+                  firstEpisodeName: "couldn't retrieve data"
+                }
+                commit('SET_CHARACTER', newCharacter);
+              })
+              commit('SET_LOADING_STATE', 'loaded');
+            })
         })
         .catch(error => {
           console.error(error);
           commit('SET_LOADING_STATE', 'error');
         })
-    }
+    },
+    
   },
   getters: {
     filteredCharactersList: state => state.filteredCharactersList,
