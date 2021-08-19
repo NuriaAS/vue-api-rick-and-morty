@@ -1,10 +1,21 @@
 <template>
     <header class="header">
-        <router-link to="/">
-            Rick&Morty<br>Characters
-        </router-link>
+        <nav>
+            <ul>
+                <li>
+                    <router-link to="/" exact>
+                        Rick&Morty
+                    </router-link>
+                </li>
+                <li v-show="$route.path===`/character/${$route.params.id}/${$route.params.name}` ? true : false">
+                    <router-link to="/characters">
+                        Go to characters' list
+                    </router-link>
+                </li>
+            </ul>
+        </nav>
         <input-group
-            v-show="$route.path==='/List' ? true : false"
+            v-show="$route.path==='/characters' ? true : false"
             @inputEvent="changeFilterHandler"
             :type="this.inputType"
             :name="this.inputName"

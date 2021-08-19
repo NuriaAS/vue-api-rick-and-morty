@@ -11,11 +11,14 @@ const getStringNumbers = (count) => {
   }
   return arrayNumbers.toString();
 }
+const baseUrl = "https://rickandmortyapi.com/api/character/";
 
 export default new Vuex.Store({
   state: {
     characterList: [],
-    filteredCharactersList: []
+    filteredCharactersList: [],
+    character: {},
+    fetchProgress: 'loading'
   },
   mutations: {
     SET_CHARACTERS_LIST(state, characters) {
@@ -25,6 +28,12 @@ export default new Vuex.Store({
     SET_FILTERED_LIST(state, filteredValue) {
       const filteredList = state.characterList.filter(character => character.name.toLowerCase().includes(filteredValue));
       state.filteredCharactersList = filteredList;
+    },
+    SET_CHARACTER(state, character) {
+      state.character = character;
+    }
+    ,SET_LOADING_STATE(state, payloadLoadingState) {
+      state.fetchProgress = payloadLoadingState
     }
   },
   actions: {
@@ -32,23 +41,40 @@ export default new Vuex.Store({
       commit('SET_FILTERED_LIST', payloadFilterValue);
     },
     getCharacters({commit}) {
-      const baseUrl = "https://rickandmortyapi.com/api/";
-      axios.get(`${baseUrl}character/`) 
+      commit('SET_LOADING_STATE', 'loading');
+      axios.get(`${baseUrl}`) 
         .then(response => {
-          axios.get(`${baseUrl}character/${getStringNumbers(response.data.info.count)}`)
+          axios.get(`${baseUrl}${getStringNumbers(response.data.info.count)}`)
             .then( response => {
               commit('SET_CHARACTERS_LIST', response.data);
+              commit('SET_LOADING_STATE', 'loaded');
             })
             .catch(error => {
               console.error(error);
+              commit('SET_LOADING_STATE', 'error');
             })
         })
         .catch(error => {
           console.error(error);
+          commit('SET_LOADING_STATE', 'error');
+        })
+    },
+    getCharacter({commit}, payloadId) {
+      commit('SET_LOADING_STATE', 'loading');
+      axios.get(`${baseUrl}${payloadId}`)
+        .then(response => {
+          commit('SET_CHARACTER', response.data);
+          commit('SET_LOADING_STATE', 'loaded');
+        })
+        .catch(error => {
+          console.error(error);
+          commit('SET_LOADING_STATE', 'error');
         })
     }
   },
   getters: {
-    filteredCharactersList: state => state.filteredCharactersList
+    filteredCharactersList: state => state.filteredCharactersList,
+    characterObject: state => state.character,
+    getLoadingState: state => state.fetchProgress
   }
 })
