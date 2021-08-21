@@ -34,7 +34,7 @@
             </ul>
         </article>
         <h1 v-else>
-            No hemos podido cargar la información de {{ this.$route.params.name }}
+            No hemos podido cargar la información de {{ characterName }}
         </h1>
     </section>
 </template>
@@ -44,8 +44,12 @@ import Spinner from '@/components/Spinner.vue';
 
 export default {
    name: 'Character',
+   props: [
+       'id',
+       'characterName',
+   ],
    mounted() {
-       this.$store.dispatch('getCharacter', this.$route.params.id);
+       this.$store.dispatch('getCharacter', this.id);
    },
    computed: {
        ...mapGetters([

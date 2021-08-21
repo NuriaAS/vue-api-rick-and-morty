@@ -2,7 +2,7 @@
   <div class="home">
     <section class="carousel">
       <Carousel/>
-      <router-link to="/characters">Go to characters' list</router-link>
+      <router-link :to="{ name: 'Characters' }">Go to characters' list</router-link>
     </section>
   </div>
 </template>

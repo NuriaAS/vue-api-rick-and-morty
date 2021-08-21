@@ -1,6 +1,6 @@
 <template>
     <li>
-        <router-link :to="`character/${item.id}/${item.name}`">
+        <router-link :to="{ name: 'Character', params: { id: item.id, characterName: item.name } }">
             <img :src="item.image" alt="">
             <h2>{{ item.name }}</h2>
         </router-link>

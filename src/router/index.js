@@ -1,6 +1,6 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+import Home from '../views/Home.vue';
 
 Vue.use(VueRouter)
 
@@ -16,8 +16,9 @@ const routes = [
     component: () => import('../views/Characters.vue')
   },
   {
-    path: '/character/:id/:name',
+    path: '/character/:id/:characterName',
     name: 'Character',
+    props: true,
     component: () => import('../views/Character.vue')
   }
 ]

@@ -3,12 +3,12 @@
         <nav>
             <ul>
                 <li>
-                    <router-link to="/" exact>
+                    <router-link :to="{ name: 'Home' }" exact>
                         Rick&Morty
                     </router-link>
                 </li>
-                <li v-show="$route.path===`/character/${$route.params.id}/${$route.params.name}` ? true : false">
-                    <router-link to="/characters">
+                <li v-show="$route.params.characterName">
+                    <router-link :to="{ name: 'Characters' }">
                         Go to characters' list
                     </router-link>
                 </li>
@@ -40,7 +40,7 @@ export default ({
    methods: {
     changeFilterHandler(value) {
         this.$store.dispatch('setFilteredList', value.toLowerCase());
-    },  
+    },
    },
    components: {
        InputGroup,
